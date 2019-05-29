@@ -6,8 +6,10 @@
 
 int main(int argc, char* argv[])
 {
+	PrintConsole topScreen, bottomScreen;
 	gfxInitDefault();
-	consoleInit(GFX_TOP, NULL);
+	consoleInit(GFX_TOP, &topScreen);
+	consoleInit(GFX_BOTTOM, &bottomScreen);
 
 	int counter = 0;
 
@@ -28,15 +30,22 @@ int main(int argc, char* argv[])
 		//get the current time
 		time_t unixTime = time(NULL); 
 		struct tm* timeStruct = gmtime((const time_t *)&unixTime);
-
+		consoleSelect(&topScreen);
 		//move the cursor back to 1,1
-		printf("\x1b[1;1H")
+		printf("\x1b[1;1H");
 		printf("Hello, world from CFW!\n");
 
 		
 		printf("Time is: \x1b[31m %02d:%02d:%02d \x1b[0m\n", 
 			timeStruct->tm_hour, timeStruct->tm_min, timeStruct->tm_sec);
-		printf("Counter value is: %d\n", counter);
+
+		
+		printf("\x1b[30;16HPress Start to exit."); 
+		
+		consoleSelect(&bottomScreen);
+		printf("\x1b[1;10H");
+		printf("Press [A] to increment counter\n");
+		printf("  Counter value is: %d\n", counter);
 
 		// Flush and swap framebuffers
 		gfxFlushBuffers();
