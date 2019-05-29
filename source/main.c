@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
 		time_t unixTime = time(NULL); 
 		struct tm* timeStruct = gmtime((const time_t *)&unixTime);
 		consoleSelect(&topScreen);
-		//move the cursor back to 1,1
+		//move the cursor back to 1,1 (Row, Column)
 		printf("\x1b[1;1H");
 		printf("Hello, world from CFW!\n");
 
@@ -43,7 +43,7 @@ int main(int argc, char* argv[])
 		printf("\x1b[30;16HPress Start to exit."); 
 		
 		consoleSelect(&bottomScreen);
-		printf("\x1b[1;10H");
+		printf("\x1b[10;1H");
 		printf("Press [A] to increment counter\n");
 		printf("  Counter value is: %d\n", counter);
 
